@@ -10,6 +10,24 @@ public class PlatformMovement : MonoBehaviour
     public float speed = 3f;
     private bool to = true;
     private float elapsedTime = 0;
+    private GameObject player;
+
+    private void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject == player)
+        {
+            player.transform.parent = this.transform;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        player.transform.parent = null;
+    }
 
     private void FixedUpdate()
     {
