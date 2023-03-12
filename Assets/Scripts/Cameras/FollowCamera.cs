@@ -33,7 +33,6 @@ public class FollowCamera : MonoBehaviour
             offset = Quaternion.Euler(0, mouseX, 0) * offset;
         }
         float angleBetween = Vector3.Angle(Vector3.up, transform.forward);
-        Debug.Log("offset angle: " + angleBetween);
         if (((angleBetween > 100) && (mouseY < 0)) || (angleBetween < 160) && (mouseY > 0))
         {
             if (Input.GetMouseButton(0))
@@ -42,13 +41,18 @@ public class FollowCamera : MonoBehaviour
                 offset = Quaternion.AngleAxis(mouseY, LocalRight) * offset;
             }
         }
-        if (mouseZ > 0)
+        float dist = Vector3.Distance(target.transform.position, transform.position);
+        Debug.Log("dist:" + dist);
+        if (((dist > 0.7) && (mouseZ < 0)) || ((dist < 6) && (mouseZ > 0)))
         {
-            offset = Vector3.Scale(offset, new Vector3(1.05f, 1.05f, 1.05f));
-        }
-        if (mouseZ < 0)
-        {
-            offset = Vector3.Scale(offset, new Vector3(0.95f, 0.95f, 0.95f));
+            if (mouseZ > 0)
+            {
+                offset = Vector3.Scale(offset, new Vector3(1.05f, 1.05f, 1.05f));
+            }
+            if (mouseZ < 0)
+            {
+                offset = Vector3.Scale(offset, new Vector3(0.95f, 0.95f, 0.95f));
+            }
         }
     }
 
