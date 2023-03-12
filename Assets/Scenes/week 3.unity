@@ -2490,6 +2490,7 @@ MonoBehaviour:
   speedFloat: 0
   sneakingBool: 0
   shoutingBool: 0
+  backwardsBool: 0
 --- !u!4 &1485234846
 Transform:
   m_ObjectHideFlags: 0
@@ -2953,10 +2954,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65127b5213113be4e990b6ebd6d874d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shoutingClip: {fileID: 8300000, guid: f2e0ffd43812bf642a502c434b572c75, type: 3}
+  shoutingClip: {fileID: 8300000, guid: 955975702df2368449cb6762a04449be, type: 3}
   speedDampTime: 0.01
   sensitivityX: 1
   animationSpeed: 1.5
+  pitchValue: 0
 --- !u!4 &1839178454 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 948745433914569506, guid: 280e5a3655dfa9e4b9a256b7541698e1,

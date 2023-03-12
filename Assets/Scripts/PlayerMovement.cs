@@ -28,7 +28,6 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         elapsedTime += Time.deltaTime;
-        Debug.Log(elapsedTime);
         float v = Input.GetAxis("Vertical");
         bool sneak = Input.GetButton("Sneak");
         float turn = Input.GetAxis("Turn");

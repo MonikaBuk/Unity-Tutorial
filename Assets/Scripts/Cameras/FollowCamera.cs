@@ -21,7 +21,7 @@ public class FollowCamera : MonoBehaviour
     private void LateUpdate()
     {
         float desiredAngle = target.transform.eulerAngles.y;
-        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0); 
+        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         transform.position = target.transform.position + (rotation * offset);
         transform.LookAt(target.transform);
         mouseX = Input.GetAxis("Mouse X");
@@ -32,11 +32,26 @@ public class FollowCamera : MonoBehaviour
         {
             offset = Quaternion.Euler(0, mouseX, 0) * offset;
         }
-        if (Input.GetMouseButton(0))
+        float angleBetween = Vector3.Angle(Vector3.up, transform.forward);
+        Debug.Log("offset angle: " + angleBetween);
+        if (((angleBetween > 100) && (mouseY < 0)) || (angleBetween < 160) && (mouseY > 0))
         {
-            offset = Quaternion.Euler(mouseY, 0, 0) * offset;
+            if (Input.GetMouseButton(0))
+            {
+                Vector3 LocalRight = target.transform.worldToLocalMatrix.MultiplyVector(transform.right);
+                offset = Quaternion.AngleAxis(mouseY, LocalRight) * offset;
+            }
+        }
+        if (mouseZ > 0)
+        {
+            offset = Vector3.Scale(offset, new Vector3(1.05f, 1.05f, 1.05f));
+        }
+        if (mouseZ < 0)
+        {
+            offset = Vector3.Scale(offset, new Vector3(0.95f, 0.95f, 0.95f));
         }
     }
 
-   
+
+
 }
