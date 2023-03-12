@@ -8,10 +8,15 @@ public class PlayerMovement : MonoBehaviour
     public float speedDampTime = 0.01f;
     public float sensitivityX = 1.0f;
     public float animationSpeed = 1.5f;
+    public float pitchValue;
+    private float elapsedTime = 0;
+    private bool noBackMov = true;
+    private float desiredDuration = 0.5f;
+
 
     private Animator anim;
     private HashIDs hash;
-  
+
 
     void Awake()
     {
@@ -22,6 +27,8 @@ public class PlayerMovement : MonoBehaviour
     }
     void FixedUpdate()
     {
+        elapsedTime += Time.deltaTime;
+        Debug.Log(elapsedTime);
         float v = Input.GetAxis("Vertical");
         bool sneak = Input.GetButton("Sneak");
         float turn = Input.GetAxis("Turn");
@@ -40,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Rigidbody ourBody = this.GetComponent<Rigidbody>();
 
-        if(mouseXInput !=0)
+        if (mouseXInput != 0)
         {
             Quaternion deltaRotation = Quaternion.Euler(0f, mouseXInput * sensitivityX, 0f);
             ourBody.MoveRotation(ourBody.rotation * deltaRotation);
@@ -51,14 +58,37 @@ public class PlayerMovement : MonoBehaviour
     void MovementManagment(float vertical, bool sneaking)
     {
         anim.SetBool(hash.sneakingBool, sneaking);
-        if(vertical>0)
+        if (vertical > 0)
         {
-            anim.SetFloat(hash.speedFloat, animationSpeed, speedDampTime, Time.deltaTime);
+            anim.SetFloat(hash.speedFloat, 1.5f, speedDampTime, Time.deltaTime);
+            anim.SetBool("Backwards", false);
+            noBackMov = true;
         }
-        else 
+        if (vertical < 0)
         {
-            anim.SetFloat(hash.speedFloat,0);
+            if (noBackMov == true)
+            {
+                elapsedTime = 0;
+                noBackMov = false;
+            }
+            float percentageComplete = elapsedTime / desiredDuration;
+            anim.SetFloat(hash.speedFloat, -1.5f, speedDampTime, Time.deltaTime);
+            anim.SetBool("Backwards", true);
+
+            Rigidbody ourBody = this.GetComponent<Rigidbody>();
+
+            float movement = Mathf.Lerp(0f, 0.025f, percentageComplete);
+            Vector3 moveBack = new Vector3(0, 0, -0.025f);
+            moveBack = ourBody.transform.TransformDirection(moveBack);
+            ourBody.transform.position += moveBack;
         }
+        if (vertical == 0)
+        {
+            anim.SetFloat(hash.speedFloat, 0);
+            anim.SetBool("Backwards", false);
+            noBackMov = true;
+        }
+
     }
 
     void AudioManagment (bool shout)
@@ -78,6 +108,12 @@ public class PlayerMovement : MonoBehaviour
         if(shout)
         {
             AudioSource.PlayClipAtPoint(shoutingClip, transform.position);
+            GameObject thisAudio = GameObject.Find("One shot audio");
+
+            if (thisAudio.name == "Z2 - Vector2 - Angry - Free - 1")
+            {
+                thisAudio.GetComponent<AudioSource>().pitch = pitchValue;
+            }
         }
 
     }

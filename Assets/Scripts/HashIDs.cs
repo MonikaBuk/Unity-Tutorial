@@ -11,9 +11,10 @@ public class HashIDs : MonoBehaviour
     public int speedFloat;
     public int sneakingBool;
     public int shoutingBool;
+    public int backwardsBool;
 
-    
-  
+
+
     private void Awake()
     {
         dyingState = Animator.StringToHash("BaseLayer.Dying");
@@ -23,6 +24,7 @@ public class HashIDs : MonoBehaviour
         speedFloat = Animator.StringToHash("Speed");
         sneakingBool = Animator.StringToHash("Sneaking");
         shoutingBool = Animator.StringToHash("Shouting");
+        backwardsBool = Animator.StringToHash("Backwards");
     }
 
 }
