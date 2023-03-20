@@ -42,7 +42,6 @@ public class FollowCamera : MonoBehaviour
             }
         }
         float dist = Vector3.Distance(target.transform.position, transform.position);
-        Debug.Log("dist:" + dist);
         if (((dist > 0.7) && (mouseZ < 0)) || ((dist < 6) && (mouseZ > 0)))
         {
             if (mouseZ > 0)
