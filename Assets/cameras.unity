@@ -1190,6 +1190,7 @@ GameObject:
   - component: {fileID: 578931948}
   - component: {fileID: 578931947}
   - component: {fileID: 578931946}
+  - component: {fileID: 578931949}
   m_Layer: 0
   m_Name: PictureInPicture
   m_TagString: Untagged
@@ -1204,14 +1205,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578931944}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.19999981, y: 2.625, z: 0.03999999}
+  m_LocalRotation: {x: -0.06445339, y: -0, z: -0, w: 0.9979207}
+  m_LocalPosition: {x: -0.32999992, y: 0.33000004, z: -5.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1811813901}
   m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -7.391, y: 0, z: 0}
 --- !u!114 &578931946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,13 +1225,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a66afe97ee04f428e622e7caae7919, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horAlign: 0
+  horAlign: 2
   vertAlign: 0
   unit: 1
-  PiPwidth: 50
-  PiPheight: 50
-  xOffest: 0
-  yOffest: 0
+  PiPwidth: 20
+  PiPheight: 20
+  xOffest: 5
+  yOffest: 5
   update: 1
 --- !u!81 &578931947
 AudioListener:
@@ -1283,6 +1284,20 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &578931949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 578931944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb305f701e5f225459a6ed319cdc4640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 1657444957}
+  zoomCamera: {fileID: 578931948}
 --- !u!1001 &626300642
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3546,6 +3561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FollowCamera: {fileID: 733700089}
   StaticCamera: {fileID: 1484714517}
+  PiPCam: {fileID: 578931948}
 --- !u!4 &1499689997 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 948745433914569506, guid: 280e5a3655dfa9e4b9a256b7541698e1,

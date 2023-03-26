@@ -61,7 +61,34 @@ public class PictureInPicture : MonoBehaviour
             xOff = xOffest;
             yOff = yOffest;
         }
-        
+        switch(horAlign)
+        {
+            case hAligment.left: 
+                hloc = xOff; break;
+            case hAligment.right:
+                int justifiedRight = (sw - hsize);
+                hloc = justifiedRight - xOff;
+                break;
+            case hAligment.centre:
+                float justifiedCenter = (sw * 0.5f) - (hsize * 0.5f);
+                hloc= (int)(justifiedCenter - xOff);
+                break; 
+        }
+        switch (vertAlign)
+        {
+            case vAligment.top:
+                int justifiedTop = sh - vsize;
+                vloc = (int)(justifiedTop - yOff);
+                break;
+            case vAligment.bottom:
+                vloc = xOff; break;
+            case vAligment.middle:
+                float justifiedMiddle = (sw * 0.5f) - (vsize * 0.5f);
+                vloc = (int)(justifiedMiddle - yOff); break;
+
+        }
+        GetComponent<Camera>().pixelRect = new Rect(hloc, vloc, hsize, vsize);
+
 
     }
 }
