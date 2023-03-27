@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private float elapsedTime = 0;
     private bool noBackMov = true;
     private float desiredDuration = 0.5f;
+    public float speed = 5.0f;
 
 
     private Animator anim;
@@ -29,17 +30,20 @@ public class PlayerMovement : MonoBehaviour
     {
         elapsedTime += Time.deltaTime;
         float v = Input.GetAxis("Vertical");
+        float h = Input.GetAxis("Horizontal");
         bool sneak = Input.GetButton("Sneak");
         float turn = Input.GetAxis("Turn");
         Rotating(turn);
-        MovementManagment(v, sneak);
+        MovementManagment(v,h, sneak);
 
+        transform.Translate(Vector3.right * h * Time.deltaTime * speed);
     }
     private void Update()
     {
         bool shout = Input.GetButtonDown("Attract");
         anim.SetBool(hash.shoutingBool, shout);
         AudioManagment(shout);
+
     }
 
     void Rotating(float mouseXInput)
@@ -54,8 +58,9 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    void MovementManagment(float vertical, bool sneaking)
+    void MovementManagment(float vertical, float horizontal, bool sneaking)
     {
+        Rigidbody ourBody = this.GetComponent<Rigidbody>();
         anim.SetBool(hash.sneakingBool, sneaking);
         if (vertical > 0)
         {
@@ -74,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
             anim.SetFloat(hash.speedFloat, -1.5f, speedDampTime, Time.deltaTime);
             anim.SetBool("Backwards", true);
 
-            Rigidbody ourBody = this.GetComponent<Rigidbody>();
+           
 
             float movement = Mathf.Lerp(0f, 0.025f, percentageComplete);
             Vector3 moveBack = new Vector3(0, 0, -0.025f);
